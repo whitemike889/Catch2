@@ -29,10 +29,9 @@ namespace Catch {
     }
 
     bool Config::listTests() const          { return m_data.listTests; }
-    bool Config::listTestNamesOnly() const  { return m_data.listTestNamesOnly; }
     bool Config::listTags() const           { return m_data.listTags; }
     bool Config::listReporters() const      { return m_data.listReporters; }
-	
+
     std::string Config::getProcessName() const { return m_data.processName; }
     std::string const& Config::getReporterName() const { return m_data.reporterName; }
 

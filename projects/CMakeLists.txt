@@ -358,11 +358,6 @@ set_tests_properties(ListTags PROPERTIES
 add_test(NAME ListReporters COMMAND $<TARGET_FILE:SelfTest> --list-reporters)
 set_tests_properties(ListReporters PROPERTIES PASS_REGULAR_EXPRESSION "Available reporters:")
 
-add_test(NAME ListTestNamesOnly COMMAND $<TARGET_FILE:SelfTest> --list-test-names-only)
-set_tests_properties(ListTestNamesOnly PROPERTIES 
-    PASS_REGULAR_EXPRESSION "Regex string matcher"
-    FAIL_REGULAR_EXPRESSION "Hidden Test")
-
 add_test(NAME NoAssertions COMMAND $<TARGET_FILE:SelfTest> -w NoAssertions)
 set_tests_properties(NoAssertions PROPERTIES PASS_REGULAR_EXPRESSION "No assertions in test case")
 

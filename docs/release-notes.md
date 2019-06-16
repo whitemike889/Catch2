@@ -26,9 +26,11 @@
 [Even Older versions](#even-older-versions)<br>
 
 ## 3.0.0 (in progress)
-### Breaking changes
+### (Potentially) Breaking changes
 * `ANON_TEST_CASE` has been removed, use `TEST_CASE` with 0 arguments instead.
-
+* `--list*` commands no longer have non-zero return code
+* `--list-test-names-only` has been removed
+  * You should use verbosity-modifiers for `--list-tests` instead
 
 ## 2.9.0
 
