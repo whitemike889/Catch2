@@ -271,8 +271,9 @@ namespace Catch {
                 applyFilenamesAsTags( *m_config );
 
             // Handle list request
-            if( Option<std::size_t> listed = list( m_config ) )
-                return static_cast<int>( *listed );
+            if (list(m_config)) {
+                return 0;
+            }
 
             auto totals = runTests( m_config );
             // Note that on unices only the lower 8 bits are usually used, clamping
