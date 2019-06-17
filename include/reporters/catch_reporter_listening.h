@@ -29,8 +29,6 @@ namespace Catch {
 
         void noMatchingTestCases( std::string const& spec ) override;
 
-        static std::set<Verbosity> getSupportedVerbosities();
-
 #if defined(CATCH_CONFIG_ENABLE_BENCHMARKING)
         void benchmarkPreparing(std::string const& name) override;
         void benchmarkStarting( BenchmarkInfo const& benchmarkInfo ) override;
