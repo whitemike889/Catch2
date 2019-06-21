@@ -59,9 +59,7 @@ namespace Catch {
         }
 
 
-        Catch::Totals runTests(std::shared_ptr<Config> const& config) {
-            auto reporter = makeReporter(config);
-
+        Catch::Totals runTests(IStreamingReporterPtr reporter, std::shared_ptr<Config> const& config) {
             RunContext context(config, std::move(reporter));
 
             Totals totals;
@@ -270,12 +268,15 @@ namespace Catch {
             if( m_configData.filenamesAsTags )
                 applyFilenamesAsTags( *m_config );
 
+            // Create reporter(s) so we can route listings through them
+            auto reporter = makeReporter(m_config);
+
             // Handle list request
-            if (list(m_config)) {
+            if (list(*reporter, m_config)) {
                 return 0;
             }
 
-            auto totals = runTests( m_config );
+            auto totals = runTests(std::move(reporter), m_config );
             // Note that on unices only the lower 8 bits are usually used, clamping
             // the return value to 255 prevents false negative when some multiple
             // of 256 tests has failed
