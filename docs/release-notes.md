@@ -31,6 +31,9 @@
 * `--list*` commands no longer have non-zero return code
 * `--list-test-names-only` has been removed
   * You should use verbosity-modifiers for `--list-tests` instead
+* `--list*` commands are now piped through the reporters
+  * The top-level reporter interface provides default implementation that works just as the old one
+  * XmlReporter outputs a machine-parseable XML
 
 ## 2.9.0
 
