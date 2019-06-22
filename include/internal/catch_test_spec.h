@@ -47,17 +47,9 @@ namespace Catch {
             std::string m_tag;
         };
 
-        class ExcludedPattern : public Pattern {
-        public:
-            ExcludedPattern( PatternPtr const& underlyingPattern );
-            virtual ~ExcludedPattern();
-            bool matches( TestCaseInfo const& testCase ) const override;
-        private:
-            PatternPtr m_underlyingPattern;
-        };
-
         struct Filter {
-            std::vector<PatternPtr> m_patterns;
+            std::vector<PatternPtr> m_required;
+            std::vector<PatternPtr> m_forbidden;
 
             bool matches( TestCaseInfo const& testCase ) const;
         };

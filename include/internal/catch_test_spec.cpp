@@ -18,7 +18,6 @@ namespace Catch {
     TestSpec::Pattern::~Pattern() = default;
     TestSpec::NamePattern::~NamePattern() = default;
     TestSpec::TagPattern::~TagPattern() = default;
-    TestSpec::ExcludedPattern::~ExcludedPattern() = default;
 
     TestSpec::NamePattern::NamePattern( std::string const& name )
     : m_wildcardPattern( toLower( name ), CaseSensitive::No )
@@ -34,16 +33,20 @@ namespace Catch {
                          m_tag) != end(testCase.lcaseTags);
     }
 
-    TestSpec::ExcludedPattern::ExcludedPattern( PatternPtr const& underlyingPattern ) : m_underlyingPattern( underlyingPattern ) {}
-    bool TestSpec::ExcludedPattern::matches( TestCaseInfo const& testCase ) const { return !m_underlyingPattern->matches( testCase ); }
-
     bool TestSpec::Filter::matches( TestCaseInfo const& testCase ) const {
-        // All patterns in a filter must match for the filter to be a match
-        for( auto const& pattern : m_patterns ) {
-            if( !pattern->matches( testCase ) )
+        bool should_use = !testCase.isHidden();
+        for (auto const& pattern : m_required) {
+            should_use = true;
+            if (!pattern->matches(testCase)) {
                 return false;
+            }
         }
-        return true;
+        for (auto const& pattern : m_forbidden) {
+            if (pattern->matches(testCase)) {
+                return false;
+            }
+        }
+        return should_use;
     }
 
     bool TestSpec::hasFilters() const {

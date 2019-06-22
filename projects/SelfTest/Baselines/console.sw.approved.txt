@@ -1,4 +1,4 @@
-Filters: ~[!nonportable]~[!benchmark]~[approvals]
+Filters: ~[!nonportable]~[!benchmark]~[approvals] *
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <exe-name> is a <version> host application.
@@ -5976,9 +5976,9 @@ with expansion:
   false == false
 
 CmdLine.tests.cpp:<line number>: PASSED:
-  CHECK( spec.matches( tcC ) == true )
+  CHECK( spec.matches( tcC ) == false )
 with expansion:
-  true == true
+  false == false
 
 -------------------------------------------------------------------------------
 Parse test names and tags
@@ -6094,9 +6094,9 @@ with expansion:
   false == false
 
 CmdLine.tests.cpp:<line number>: PASSED:
-  CHECK( spec.matches( tcC ) == true )
+  CHECK( spec.matches( tcC ) == false )
 with expansion:
-  true == true
+  false == false
 
 CmdLine.tests.cpp:<line number>: PASSED:
   CHECK( spec.matches( tcD ) == true )

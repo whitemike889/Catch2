@@ -54,9 +54,11 @@ namespace Catch {
             }
             if( !token.empty() ) {
                 TestSpec::PatternPtr pattern = std::make_shared<T>( token );
-                if( m_exclusion )
-                    pattern = std::make_shared<TestSpec::ExcludedPattern>( pattern );
-                m_currentFilter.m_patterns.push_back( pattern );
+                if (m_exclusion) {
+                    m_currentFilter.m_forbidden.push_back(pattern);
+                } else {
+                    m_currentFilter.m_required.push_back(pattern);
+                }
             }
             m_exclusion = false;
             m_mode = None;
