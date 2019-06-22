@@ -73,7 +73,6 @@ namespace Catch {
         StreamingReporterBase::testCaseStarting(testInfo);
         m_xml.startElement( "TestCase" )
             .writeAttribute( "name", trim( testInfo.name ) )
-            .writeAttribute( "description", testInfo.description )
             .writeAttribute( "tags", testInfo.tagsAsString() );
 
         writeSourceInfo( testInfo.lineInfo );
@@ -277,7 +276,6 @@ namespace Catch {
             auto const& testInfo = test.getTestCaseInfo();
             m_xml.startElement("Name", XmlFormatting::Indent).writeText(testInfo.name, XmlFormatting::None).endElement(XmlFormatting::Newline);
             m_xml.startElement("ClassName").writeText(testInfo.className, XmlFormatting::None).endElement(XmlFormatting::Newline);
-            m_xml.startElement("Description").writeText(testInfo.description, XmlFormatting::None).endElement(XmlFormatting::Newline);
             m_xml.startElement("Tags", XmlFormatting::Indent).writeText(testInfo.tagsAsString(), XmlFormatting::None).endElement(XmlFormatting::Newline);
             auto sourceTag = m_xml.scopedElement("SourceInfo");
             m_xml.startElement("File", XmlFormatting::Indent).writeText(testInfo.lineInfo.file, XmlFormatting::None).endElement(XmlFormatting::Newline);

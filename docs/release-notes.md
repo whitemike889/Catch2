@@ -34,6 +34,8 @@
 * `--list*` commands are now piped through the reporters
   * The top-level reporter interface provides default implementation that works just as the old one
   * XmlReporter outputs a machine-parseable XML
+* `TEST_CASE` description support has been removed
+  * If the second argument has text outside tags, the text will be ignored.
 
 ## 2.9.0
 
