@@ -275,23 +275,23 @@ namespace Catch {
         for (auto const& test : tests) {
             auto innerTag = m_xml.scopedElement("TestCase");
             auto const& testInfo = test.getTestCaseInfo();
-            m_xml.startElement("Name").writeText(testInfo.name, XmlFormatting::None).endElement(XmlFormatting::Newline);
+            m_xml.startElement("Name", XmlFormatting::Indent).writeText(testInfo.name, XmlFormatting::None).endElement(XmlFormatting::Newline);
             m_xml.startElement("ClassName").writeText(testInfo.className, XmlFormatting::None).endElement(XmlFormatting::Newline);
             m_xml.startElement("Description").writeText(testInfo.description, XmlFormatting::None).endElement(XmlFormatting::Newline);
-            m_xml.startElement("Tags").writeText(testInfo.tagsAsString(), XmlFormatting::None).endElement(XmlFormatting::Newline);
+            m_xml.startElement("Tags", XmlFormatting::Indent).writeText(testInfo.tagsAsString(), XmlFormatting::None).endElement(XmlFormatting::Newline);
             auto sourceTag = m_xml.scopedElement("SourceInfo");
-            m_xml.startElement("File").writeText(testInfo.lineInfo.file, XmlFormatting::None).endElement(XmlFormatting::Newline);
-            m_xml.startElement("Line").writeText(std::to_string(testInfo.lineInfo.line), XmlFormatting::None).endElement(XmlFormatting::Newline);
+            m_xml.startElement("File", XmlFormatting::Indent).writeText(testInfo.lineInfo.file, XmlFormatting::None).endElement(XmlFormatting::Newline);
+            m_xml.startElement("Line", XmlFormatting::Indent).writeText(std::to_string(testInfo.lineInfo.line), XmlFormatting::None).endElement(XmlFormatting::Newline);
         }
     }
     void XmlReporter::listTags(std::vector<TagInfo> const& tags, Config const&) {
         auto outerTag = m_xml.scopedElement("TagsFromMatchingTests");
         for (auto const& tag : tags) {
             auto innerTag = m_xml.scopedElement("Tag");
-            m_xml.startElement("Count").writeText(std::to_string(tag.count), XmlFormatting::None).endElement(XmlFormatting::Newline);
+            m_xml.startElement("Count", XmlFormatting::Indent).writeText(std::to_string(tag.count), XmlFormatting::None).endElement(XmlFormatting::Newline);
             auto aliasTag = m_xml.scopedElement("Aliases");
             for (auto const& alias : tag.spellings) {
-                m_xml.startElement("Alias").writeText(alias, XmlFormatting::None).endElement(XmlFormatting::Newline);
+                m_xml.startElement("Alias", XmlFormatting::Indent).writeText(alias, XmlFormatting::None).endElement(XmlFormatting::Newline);
             }
         }
     }
