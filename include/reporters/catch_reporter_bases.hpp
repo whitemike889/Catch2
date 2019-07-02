@@ -27,7 +27,6 @@ namespace Catch {
 
     std::string serializeFilters( std::vector<std::string> const& container );
 
-    template<typename DerivedT>
     struct StreamingReporterBase : IStreamingReporter {
 
         StreamingReporterBase( ReporterConfig const& _config )
@@ -41,7 +40,7 @@ namespace Catch {
             return m_reporterPrefs;
         }
 
-        ~StreamingReporterBase() override = default;
+        ~StreamingReporterBase() override;
 
         void noMatchingTestCases(std::string const&) override {}
 
@@ -91,7 +90,6 @@ namespace Catch {
         ReporterPreferences m_reporterPrefs;
     };
 
-    template<typename DerivedT>
     struct CumulativeReporterBase : IStreamingReporter {
         template<typename T, typename ChildNodeT>
         struct Node {
@@ -104,7 +102,6 @@ namespace Catch {
         };
         struct SectionNode {
             explicit SectionNode(SectionStats const& _stats) : stats(_stats) {}
-            virtual ~SectionNode() = default;
 
             bool operator == (SectionNode const& other) const {
                 return stats.sectionInfo.lineInfo == other.stats.sectionInfo.lineInfo;
@@ -146,7 +143,7 @@ namespace Catch {
         {
             m_reporterPrefs.shouldRedirectStdOut = false;
         }
-        ~CumulativeReporterBase() override = default;
+        ~CumulativeReporterBase() override;
 
         ReporterPreferences getPreferences() const override {
             return m_reporterPrefs;
@@ -254,7 +251,7 @@ namespace Catch {
     }
 
 
-    struct TestEventListenerBase : StreamingReporterBase<TestEventListenerBase> {
+    struct TestEventListenerBase : StreamingReporterBase {
         TestEventListenerBase( ReporterConfig const& _config );
 
         void assertionStarting(AssertionInfo const&) override;
