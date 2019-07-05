@@ -10,6 +10,7 @@
 #include "catch_stringref.h"
 
 #include <iterator>
+#include <algorithm>
 
 namespace Catch {
 
