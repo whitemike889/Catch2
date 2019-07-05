@@ -15,7 +15,6 @@
 #include <stdexcept>
 #include <memory>
 #include <sstream>
-#include <iterator>
 
 #if defined(__clang__)
 #    pragma clang diagnostic push
@@ -225,17 +224,15 @@ namespace TestCaseTracking {
 
     void SectionTracker::addInitialFilters( std::vector<std::string> const& filters ) {
         if( !filters.empty() ) {
+            m_filters.reserve( m_filters.size() + filters.size() + 2 );
             m_filters.push_back(""); // Root - should never be consulted
             m_filters.push_back(""); // Test Case - not a section filter
-            std::transform(
-                filters.begin(), filters.end(),
-                std::back_inserter( m_filters ),
-                &trim );
+            m_filters.insert( m_filters.end(), filters.begin(), filters.end() );
         }
     }
     void SectionTracker::addNextFilters( std::vector<std::string> const& filters ) {
         if( filters.size() > 1 )
-            m_filters.insert( m_filters.end(), ++filters.begin(), filters.end() );
+            m_filters.insert( m_filters.end(), filters.begin()+1, filters.end() );
     }
 
 } // namespace TestCaseTracking

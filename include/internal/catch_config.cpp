@@ -9,17 +9,29 @@
 #include "catch_enforce.h"
 #include "catch_stringref.h"
 
+#include <iterator>
+
 namespace Catch {
 
     Config::Config( ConfigData const& data )
     :   m_data( data ),
         m_stream( openStream() )
     {
+        std::transform(
+            data.testsOrTags.begin(), data.testsOrTags.end(),
+            std::back_inserter( m_testsOrTags ),
+            &trim );
+
+        std::transform(
+            data.sectionsToRun.begin(), data.sectionsToRun.end(),
+            std::back_inserter( m_sectionsToRun ),
+            &trim );
+
         TestSpecParser parser(ITagAliasRegistry::get());
-        if (!data.testsOrTags.empty()) {
+        if (!m_testsOrTags.empty()) {
             m_hasTestFilters = true;
-            for( auto const& testOrTags : data.testsOrTags )
-                parser.parse( testOrTags );
+            for( auto const& testOrTags : m_testsOrTags )
+                parser.parse( trim( testOrTags ) );
         }
         m_testSpec = parser.testSpec();
     }
@@ -36,8 +48,8 @@ namespace Catch {
     std::string Config::getProcessName() const { return m_data.processName; }
     std::string const& Config::getReporterName() const { return m_data.reporterName; }
 
-    std::vector<std::string> const& Config::getTestsOrTags() const { return m_data.testsOrTags; }
-    std::vector<std::string> const& Config::getSectionsToRun() const { return m_data.sectionsToRun; }
+    std::vector<std::string> const& Config::getTestsOrTags() const { return m_testsOrTags; }
+    std::vector<std::string> const& Config::getSectionsToRun() const { return m_sectionsToRun; }
 
     TestSpec const& Config::testSpec() const { return m_testSpec; }
     bool Config::hasTestFilters() const { return m_hasTestFilters; }

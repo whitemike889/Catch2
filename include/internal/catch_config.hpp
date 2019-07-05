@@ -122,6 +122,9 @@ namespace Catch {
         std::unique_ptr<IStream const> m_stream;
         TestSpec m_testSpec;
         bool m_hasTestFilters = false;
+
+        std::vector<std::string> m_testsOrTags;
+        std::vector<std::string> m_sectionsToRun;
     };
 
 } // end namespace Catch
